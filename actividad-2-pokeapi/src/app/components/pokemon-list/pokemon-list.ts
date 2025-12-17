@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core'; // <--- 1. Importar ChangeDetectorRef
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PokemonService } from '../../services/pokemon';
@@ -13,7 +13,7 @@ import { PokemonBasicInfo } from '../../interfaces/pokemon';
 })
 export class PokemonListComponent implements OnInit {
   private pokemonService = inject(PokemonService);
-  private cd = inject(ChangeDetectorRef); // <--- 2. Inyectar el "electroshock"
+  private cd = inject(ChangeDetectorRef); 
 
   pokemonList: PokemonBasicInfo[] = [];
   offset: number = 0;
@@ -27,7 +27,7 @@ export class PokemonListComponent implements OnInit {
     this.pokemonService.getPokemons(this.offset, this.limit).subscribe({
       next: (data) => {
         this.pokemonList = data.results;
-        this.cd.detectChanges(); // <--- 3. ¡DESPIERTA ANGULAR!
+        this.cd.detectChanges(); 
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (err) => console.error(err)
