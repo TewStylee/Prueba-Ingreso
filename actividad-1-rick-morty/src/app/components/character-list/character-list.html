@@ -1,9 +1,9 @@
 <div class="container">
-  <h1>Lista de Personajes de Rick and Morty</h1>
+  <h1>Lista De Personajes de Rick and Morty </h1>
   
   <div class="character-grid">
     @for (character of characters; track character.id) {
-      <div class="card" [routerLink]="['/character', character.id]" style="cursor: pointer;">
+      <div class="card" [routerLink]="['/character', character.id]">
         <img [src]="character.image" [alt]="character.name">
         <div class="info">
           <h3>{{ character.name }}</h3>
@@ -13,7 +13,13 @@
         </div>
       </div>
     } @empty {
-      <p>Cargando personajes, espere por favor..</p>
+      <p>Cargando Personajes...</p>
     }
+  </div>
+
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>Página {{ currentPage }}</span>
+    <button (click)="nextPage()">Siguiente</button>
   </div>
 </div>

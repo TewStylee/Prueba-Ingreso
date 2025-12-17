@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core'; 
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RickMortyService } from '../../services/rick-morty';
@@ -13,18 +13,36 @@ import { Character } from '../../interfaces/character';
 })
 export class CharacterListComponent implements OnInit {
   private rickMortyService = inject(RickMortyService);
-  private cd = inject(ChangeDetectorRef); 
+  private cd = inject(ChangeDetectorRef);
 
   characters: Character[] = [];
+  currentPage: number = 1; 
 
   ngOnInit() {
-    this.rickMortyService.getCharacters().subscribe({
+    this.loadCharacters();
+  }
+
+  loadCharacters() {
+    this.rickMortyService.getCharacters(this.currentPage).subscribe({
       next: (data) => {
         this.characters = data.results;
         this.cd.detectChanges(); 
-        console.log('Lista Actualizada', this.characters);
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error('Error:', error)
     });
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.loadCharacters();
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadCharacters();
+    }
   }
 }

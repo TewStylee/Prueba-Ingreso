@@ -11,8 +11,8 @@ export class RickMortyService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/character`; 
 
-  getCharacters(): Observable<CharacterResponse> {
-    return this.http.get<CharacterResponse>(this.apiUrl);
+  getCharacters(page: number = 1): Observable<CharacterResponse> {
+    return this.http.get<CharacterResponse>(`${this.apiUrl}/?page=${page}`);
   }
 
   getCharacter(id: number): Observable<Character> {
