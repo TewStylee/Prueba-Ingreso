@@ -1,5 +1,15 @@
 <div class="container">
-  <h1>Lista De Personajes de Rick and Morty </h1>
+  <h1>Lista De Personajes De Rick and Morty</h1>
+
+  <div class="search-bar">
+    <input 
+      #txtSearch 
+      type="text" 
+      placeholder="Buscar personaje..." 
+      (keyup.enter)="search(txtSearch.value)">
+    
+    <button (click)="search(txtSearch.value)">🔍 Buscar</button>
+  </div>
   
   <div class="character-grid">
     @for (character of characters; track character.id) {
@@ -13,13 +23,17 @@
         </div>
       </div>
     } @empty {
-      <p>Cargando Personajes...</p>
+      <div class="no-results">
+        <p>🚫 No encontramos a nadie con ese nombre.</p>
+      </div>
     }
   </div>
 
-  <div class="pagination">
-    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-    <span>Página {{ currentPage }}</span>
-    <button (click)="nextPage()">Siguiente</button>
-  </div>
+  @if (characters.length > 0) {
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }}</span>
+      <button (click)="nextPage()">Siguiente</button>
+    </div>
+  }
 </div>

@@ -16,22 +16,32 @@ export class CharacterListComponent implements OnInit {
   private cd = inject(ChangeDetectorRef);
 
   characters: Character[] = [];
-  currentPage: number = 1; 
+  currentPage: number = 1;
+  currentSearch: string = ''; 
 
   ngOnInit() {
     this.loadCharacters();
   }
 
   loadCharacters() {
-    this.rickMortyService.getCharacters(this.currentPage).subscribe({
+    this.rickMortyService.getCharacters(this.currentPage, this.currentSearch).subscribe({
       next: (data) => {
         this.characters = data.results;
-        this.cd.detectChanges(); 
-        
+        this.cd.detectChanges();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
-      error: (error) => console.error('Error:', error)
+      error: (error) => {
+        console.error('Error o Sin Resultados:', error);
+        this.characters = []; 
+        this.cd.detectChanges();
+      }
     });
+  }
+
+  search(searchTerm: string) {
+    this.currentSearch = searchTerm; 
+    this.currentPage = 1;
+    this.loadCharacters();
   }
 
   nextPage() {
