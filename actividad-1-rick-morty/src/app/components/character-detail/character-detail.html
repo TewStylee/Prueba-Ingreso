@@ -21,9 +21,14 @@
 
         <div class="episodes-section">
           <h3>Aparece en {{ character.episode.length }} episodios:</h3>
+          
           <div class="episode-grid">
-            @for (ep of character.episode; track ep) {
-              <span class="ep-badge">Ep. {{ getEpisodeNumber(ep) }}</span>
+            @for (ep of episodes; track ep.id) {
+              <div class="ep-badge" title="{{ ep.name }}">
+                <strong>{{ ep.episode }}</strong>: {{ ep.name }}
+              </div>
+            } @empty {
+              <p>Cargando información de episodios...</p>
             }
           </div>
         </div>

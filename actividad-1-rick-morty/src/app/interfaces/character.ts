@@ -10,7 +10,7 @@ export interface Character {
   species: string;
   type: string;
   gender: string;
-  origin: {          // <--- FALTABA ESTO
+  origin: {          
     name: string;
     url: string;
   };
@@ -20,6 +20,16 @@ export interface Character {
   };
   image: string;
   episode: string[]; 
+  url: string;
+  created: string;
+}
+
+export interface Episode {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string; 
+  characters: string[];
   url: string;
   created: string;
 }

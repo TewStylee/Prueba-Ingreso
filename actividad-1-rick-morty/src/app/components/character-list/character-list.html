@@ -1,14 +1,28 @@
 <div class="container">
   <h1>Lista De Personajes De Rick and Morty</h1>
 
-  <div class="search-bar">
-    <input 
-      #txtSearch 
-      type="text" 
-      placeholder="Buscar personaje..." 
-      (keyup.enter)="search(txtSearch.value)">
-    
-    <button (click)="search(txtSearch.value)">🔍 Buscar</button>
+  <div class="filters-container">
+    <div class="search-group">
+      <input 
+        [(ngModel)]="currentSearch" 
+        (keyup.enter)="filter()"
+        type="text" 
+        placeholder="Buscar por nombre...">
+      <button (click)="filter()">🔍</button>
+    </div>
+
+    <select [(ngModel)]="currentStatus" (ngModelChange)="filter()"> <option value="">Todos los Estados</option>
+      <option value="alive">Vivo (Alive)</option>
+      <option value="dead">Muerto (Dead)</option>
+      <option value="unknown">Desconocido</option>
+    </select>
+
+    <select [(ngModel)]="currentSpecies" (ngModelChange)="filter()"> <option value="">Todas las Especies</option>
+      <option value="human">Humano</option>
+      <option value="alien">Alien</option>
+      <option value="humanoid">Humanoide</option>
+      <option value="robot">Robot</option>
+    </select>
   </div>
   
   <div class="character-grid">
@@ -24,7 +38,7 @@
       </div>
     } @empty {
       <div class="no-results">
-        <p>🚫 No encontramos a nadie con ese nombre.</p>
+        <p>🚫 No encontramos a nadie con este nombre.</p>
       </div>
     }
   </div>

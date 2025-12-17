@@ -94,12 +94,18 @@
       gap: 0.6rem;
       .ep-badge {
         background: #f1f2f6;
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem 0.8rem; 
         border-radius: 6px;
-        font-size: 0.85rem;
-        color: #57606f;
-        font-weight: 500;
-        border: 1px solid #e1e4e8;        
+        font-size: 0.9rem;
+        color: #333; 
+        border: 1px solid #e1e4e8;
+        display: flex; 
+        gap: 0.5rem;
+        
+        strong {
+          color: #202329; 
+        }
+        
         &:hover {
           background: #e1e4e8;
           cursor: default;
