@@ -2,6 +2,16 @@
   <div class="header">
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pokémon_logo.svg" alt="Pokemon Logo" class="logo">
     <h1>¡Atrápalos Ya!</h1>
+    
+    <div class="search-box">
+      <input 
+        #txtSearch 
+        type="text" 
+        placeholder="Escribe el Nombre o ID del Pokemón.." 
+        (keyup.enter)="searchPokemon(txtSearch.value)">
+      
+      <button (click)="searchPokemon(txtSearch.value)">🔍</button>
+    </div>
   </div>
 
   <div class="pokemon-grid">
@@ -11,7 +21,8 @@
           <img [src]="getPokemonImage(pokemon.url)" [alt]="pokemon.name">
         </div>
         <div class="card-info">
-          <h3>{{ pokemon.name | titlecase }}</h3> <span class="view-btn">Ver Detalles</span>
+          <h3>{{ pokemon.name | titlecase }}</h3>
+          <span class="view-btn">Ver Detalles</span>
         </div>
       </div>
     } @empty {

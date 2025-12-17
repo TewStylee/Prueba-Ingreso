@@ -1,6 +1,6 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core'; 
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router'; 
 import { PokemonService } from '../../services/pokemon';
 import { PokemonBasicInfo } from '../../interfaces/pokemon';
 
@@ -13,7 +13,8 @@ import { PokemonBasicInfo } from '../../interfaces/pokemon';
 })
 export class PokemonListComponent implements OnInit {
   private pokemonService = inject(PokemonService);
-  private cd = inject(ChangeDetectorRef); 
+  private cd = inject(ChangeDetectorRef);
+  private router = inject(Router); 
 
   pokemonList: PokemonBasicInfo[] = [];
   offset: number = 0;
@@ -27,11 +28,17 @@ export class PokemonListComponent implements OnInit {
     this.pokemonService.getPokemons(this.offset, this.limit).subscribe({
       next: (data) => {
         this.pokemonList = data.results;
-        this.cd.detectChanges(); 
+        this.cd.detectChanges();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (err) => console.error(err)
     });
+  }
+
+  searchPokemon(term: string) {
+    if (term.trim()) {
+      this.router.navigate(['/pokemon', term.toLowerCase()]);
+    }
   }
 
   getPokemonImage(url: string): string {
