@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router'; 
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RickMortyService } from '../../services/rick-morty';
 import { Character } from '../../interfaces/character';
 
@@ -12,10 +12,11 @@ import { Character } from '../../interfaces/character';
   styleUrl: './character-detail.scss'
 })
 export class CharacterDetailComponent implements OnInit {
-  private route = inject(ActivatedRoute); 
+  private route = inject(ActivatedRoute);
   private rickMortyService = inject(RickMortyService);
+  private cd = inject(ChangeDetectorRef); 
 
-  character: Character | null = null; 
+  character: Character | null = null;
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -25,12 +26,13 @@ export class CharacterDetailComponent implements OnInit {
         next: (data) => {
           this.character = data;
           console.log('Personaje cargado:', this.character);
+          this.cd.detectChanges(); 
         },
-        error: (err) => console.error('Error cargando personaje:', err)
+        error: (err) => console.error(err)
       });
     }
   }
-  
+
   getEpisodeNumber(url: string): string {
     return url.split('/').pop() || '';
   }
