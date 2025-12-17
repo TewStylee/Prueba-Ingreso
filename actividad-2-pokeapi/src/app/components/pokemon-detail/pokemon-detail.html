@@ -1,0 +1,49 @@
+<div class="detail-container">
+  <a routerLink="/" class="back-btn">⬅ Volver a la lista</a>
+
+  @if (loading) {
+    <div class="loading">Cargando datos del Pokémon...</div>
+  } @else if (pokemon) {
+    <div class="pokemon-card">
+      
+      <div class="header">
+        <span class="id">#{{ pokemon.id }}</span>
+        <h1>{{ pokemon.name | titlecase }}</h1>
+      </div>
+
+      <div class="image-container">
+        <img [src]="pokemon.sprites.other?.['official-artwork']?.front_default || pokemon.sprites.front_default" 
+             [alt]="pokemon.name">
+      </div>
+
+      <div class="types">
+        @for (t of pokemon.types; track t.slot) {
+          <span class="type-badge" [class]="t.type.name">{{ t.type.name }}</span>
+        }
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="label">Altura</span>
+          <span class="value">{{ pokemon.height / 10 }} m</span>
+        </div>
+        <div class="stat-box">
+          <span class="label">Peso</span>
+          <span class="value">{{ pokemon.weight / 10 }} kg</span>
+        </div>
+      </div>
+
+      <div class="abilities-section">
+        <h3>Habilidades</h3>
+        <div class="abilities-list">
+          @for (a of pokemon.abilities; track a.ability.name) {
+            <span class="ability">{{ a.ability.name }}</span>
+          }
+        </div>
+      </div>
+
+    </div>
+  } @else {
+    <p class="error">No pudimos encontrar ese Pokémon.</p>
+  }
+</div>
