@@ -4,12 +4,11 @@ import { TaskListComponent } from './components/task-list/task-list';
 import { authGuard } from './guards/auth-guard'; 
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { 
     path: 'tasks', 
-    component: TaskListComponent,
+    component: TaskListComponent, 
     canActivate: [authGuard] 
-  },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' }
+  }
 ];
