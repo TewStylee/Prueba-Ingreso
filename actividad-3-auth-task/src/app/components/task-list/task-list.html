@@ -1,5 +1,40 @@
-<div style="padding: 2rem; text-align: center;">
-  <h1>¡Login Exitoso!</h1>
-  <p>Bienvenido al módulo de Tareas (Pronto programaremos esto)</p>
-  <button (click)="logout()" style="background: red; color: white; padding: 10px; border: none; cursor: pointer;">Cerrar Sesión</button>
+<div class="container">
+  <header>
+    <h1>Lista de mis Tareas</h1>
+    <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+  </header>
+
+  <div class="add-task-box">
+    <input 
+      type="text" 
+      placeholder="Agrega mas tareas." 
+      [(ngModel)]="newTaskTitle"
+      (keyup.enter)="addTask()"
+    >
+    <button (click)="addTask()" [disabled]="!newTaskTitle.trim() || isLoading">
+        {{ isLoading ? '...' : 'AGREGAR' }}
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <p class="loading">Cargando...</p>
+  }
+
+  <ul class="task-list">
+    @for (task of tasks; track task.id) {
+      <li [class.completed]="task.completed">
+        <span (click)="toggleTask(task)" class="task-text">
+          {{ task.title }}
+        </span>
+        
+        <div class="actions">
+          <button class="btn-edit" (click)="editTask(task); $event.stopPropagation()">✏️</button>
+          
+          <button class="btn-delete" (click)="deleteTask(task.id); $event.stopPropagation()">🗑️</button>
+        </div>
+      </li>
+    } @empty {
+      <p class="empty-state">No hay tareas pendientes.</p>
+    }
+  </ul>
 </div>
