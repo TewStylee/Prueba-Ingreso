@@ -1,0 +1,20 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <h2>Bienvenido</h2>
+    
+    <input type="text" [(ngModel)]="email" placeholder="Email">
+    <input type="password" [(ngModel)]="password" placeholder="Contraseña">
+    
+    @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+    }
+
+    <button (click)="onLogin()">INGRESAR</button>
+    
+    <div class="hint">
+      <small><b>Credenciales de prueba:</b></small><br>
+      <small>jhonny@gmail.com</small><br>
+      <small>jhonny123</small>
+    </div>
+  </div>
+</div>
